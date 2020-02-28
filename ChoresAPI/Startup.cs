@@ -1,6 +1,7 @@
 using System.Text.Json;
 using ChoresAPI.Authentication;
 using ChoresAPI.Authorization;
+using ChoresAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +50,9 @@ namespace ChoresAPI
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                     options.JsonSerializerOptions.IgnoreNullValues = true;
                 });
+            
             services.ConfigureSwaggerFeature();
+            OptionsConfigurationServiceCollectionExtensions.Configure<DBConnection>(services, Configuration.GetSection("ConnectionStrings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

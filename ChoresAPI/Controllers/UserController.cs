@@ -1,4 +1,5 @@
-﻿using ChoresAPI.Models;
+﻿using ChoresAPI.DataBase;
+using ChoresAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.ObjectModel;
 
@@ -8,33 +9,33 @@ namespace ChoresAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet("anyone")]
-        public IActionResult GetUser([FromBody]User user)
+        public DBConnection DBConnection { get; }
+        public UserController(Microsoft.Extensions.Options.IOptions<DBConnection> connection)
         {
-            var message = $"Get Call for {nameof(GetUser)}";
-            return new ObjectResult(message);
-        }
-        [HttpGet("anyone")]
-        public ObservableCollection<User> GetUsers([FromBody]UserFamily userFamily)
-        {
-            var result = new ObservableCollection<User>();
-            var message = $"Get Call for {nameof(GetUsers)}";
-            result.Add(new User { FullName = message });
-            return result;
+            DBConnection = connection.Value;
         }
 
-        [HttpPost("anyone")]
-        public IActionResult CreateUser([FromBody]User user)
+
+
+        [HttpGet("anyone")]
+        public ObservableCollection<User> GetUsers()
         {
-            var message = $"Post Call for {nameof(CreateUser)}";
-            return new ObjectResult(message);
+            var list = DatabaseHelper.GetUsers(DBConnection.DefaultConnection);
+            return list;
         }
 
-        [HttpPatch("anyone")]
-        public IActionResult UpdateUser([FromBody]User user)
-        {
-            var message = $"Patch Call for {nameof(UpdateUser)}";
-            return new ObjectResult(message);
-        }
+        //[HttpPost("anyone")]
+        //public IActionResult CreateUser([FromBody]User user)
+        //{
+        //    var message = $"Post Call for {nameof(CreateUser)}";
+        //    return new ObjectResult(message);
+        //}
+
+        //[HttpPatch("anyone")]
+        //public IActionResult UpdateUser([FromBody]User user)
+        //{
+        //    var message = $"Patch Call for {nameof(UpdateUser)}";
+        //    return new ObjectResult(message);
+        //}
     }
 }
