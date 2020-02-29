@@ -24,18 +24,18 @@ namespace ChoresAPI.Controllers
             return list;
         }
 
-        //[HttpPost("anyone")]
-        //public IActionResult CreateUser([FromBody]User user)
-        //{
-        //    var message = $"Post Call for {nameof(CreateUser)}";
-        //    return new ObjectResult(message);
-        //}
+        [HttpPost("anyone")]
+        public IActionResult CreateUser([FromBody]User user)
+        {
+            var message = DatabaseHelper.CreateUser(DBConnection.DefaultConnection,user.FullName,user.Birthday);
+            return new ObjectResult(message);
+        }
 
-        //[HttpPatch("anyone")]
-        //public IActionResult UpdateUser([FromBody]User user)
-        //{
-        //    var message = $"Patch Call for {nameof(UpdateUser)}";
-        //    return new ObjectResult(message);
-        //}
+        [HttpPatch("anyone")]
+        public IActionResult UpdateUser([FromBody]User user)
+        {
+            var message = $"Patch Call for {nameof(UpdateUser)}";
+            return new ObjectResult(message);
+        }
     }
 }

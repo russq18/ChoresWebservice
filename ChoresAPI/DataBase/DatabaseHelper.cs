@@ -47,5 +47,34 @@ namespace ChoresAPI.DataBase
 
             return headers;
         }
+
+        public static string CreateUser(string connectionString, string fullName, string birthday)
+        {
+            var result = String.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("common.CreateUser"))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@FullName", fullName));
+                    command.Parameters.Add(new SqlParameter("@Birthday", birthday));
+                    command.Connection = connection;
+
+                    connection.Open();
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        result = $"User Record for {fullName} has been saved";
+                        reader.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        result = $"User Record for {fullName} could not be saved because of {e}";
+                    }
+                    connection.Close();
+                    return result;
+                }
+            }
+        }
     }
 }
