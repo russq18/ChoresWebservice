@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChoresAPI.DataBase;
+using ChoresAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,5 +14,27 @@ namespace ChoresAPI.Controllers
     [ApiController]
     public class UserFamilyController : ControllerBase
     {
+        public DBConnection DBConnection { get; }
+        public UserFamilyController(Microsoft.Extensions.Options.IOptions<DBConnection> connection)
+        {
+            DBConnection = connection.Value;
+        }
+
+
+        [HttpPost("CreateUserFamily")]
+        [Authorize]
+        public IActionResult CreateUserFamily([FromBody]UserFamily userFamily)
+        {
+            var message = DatabaseHelper.CreateUserFamily(DBConnection.DefaultConnection, userFamily);
+            return new ObjectResult(message);
+        }
+
+        [HttpPatch("UpdateUserFamily")]
+        [Authorize]
+        public IActionResult UpdateUserFamily([FromBody]UserFamily userFamily)
+        {
+            var message = DatabaseHelper.UpdateUserFamily(DBConnection.DefaultConnection, userFamily);
+            return new ObjectResult(message);
+        }
     }
 }

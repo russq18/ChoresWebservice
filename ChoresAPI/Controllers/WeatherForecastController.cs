@@ -25,6 +25,7 @@ namespace ChoresAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Policies.OnlyParents)]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

@@ -1,5 +1,6 @@
 ﻿using ChoresAPI.DataBase;
 using ChoresAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.ObjectModel;
 
@@ -15,26 +16,27 @@ namespace ChoresAPI.Controllers
             DBConnection = connection.Value;
         }
 
-
-
-        [HttpGet("anyone")]
+        [HttpGet("GetUsers")]
+        [Authorize]
         public ObservableCollection<User> GetUsers()
         {
             var list = DatabaseHelper.GetUsers(DBConnection.DefaultConnection);
             return list;
         }
 
-        [HttpPost("anyone")]
+        [HttpPost("CreateUser")]
+        [Authorize]
         public IActionResult CreateUser([FromBody]User user)
         {
             var message = DatabaseHelper.CreateUser(DBConnection.DefaultConnection,user.FullName,user.Birthday);
             return new ObjectResult(message);
         }
 
-        [HttpPatch("anyone")]
+        [HttpPatch("UpdateUser")]
+        [Authorize]
         public IActionResult UpdateUser([FromBody]User user)
         {
-            var message = $"Patch Call for {nameof(UpdateUser)}";
+            var message = DatabaseHelper.UpdateUser(DBConnection.DefaultConnection,user);
             return new ObjectResult(message);
         }
     }

@@ -24,9 +24,7 @@ namespace ChoresAPI.Authentication
                         Roles.Child,
                         Roles.Parent
                     }),
-                
             };
-
                 _apiKeys = existingApiKeys.ToDictionary(x => x.Key, x => x);
         }
 
