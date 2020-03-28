@@ -11,5 +11,8 @@ namespace ChoresAPI.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
+        #region Constructor and fields for DI
+
+        #endregion
     }
 }

@@ -1,17 +1,12 @@
 ﻿using ChoresAPI.Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ChoresAPI.DataBase
 {
     public class DatabaseHelper
     {
-
         #region User DB Calls
         public static ObservableCollection<User> GetUsers(string connectionString)
         {
@@ -102,7 +97,6 @@ namespace ChoresAPI.DataBase
         }
 
         #endregion
-
         #region Chore Record DB Calls
         public static void GetChoreRecords(string connectionString, ChoreRecord record)
         {
@@ -177,7 +171,6 @@ namespace ChoresAPI.DataBase
             return result;
         }
         #endregion
-
         #region Family DB Calls
         public static void GetFamily(string connectionString, Family family)
         {
@@ -237,7 +230,6 @@ namespace ChoresAPI.DataBase
             return result;
         }
         #endregion
-
         #region User Family DB Calls
         public static void GetUserFamily(string connectionString, UserFamily userfamily)
         {

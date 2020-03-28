@@ -14,12 +14,13 @@ namespace ChoresAPI.Controllers
     [ApiController]
     public class FamilyController : ControllerBase
     {
+        #region Constructor and fields for DI
         public DBConnection DBConnection { get; }
         public FamilyController(Microsoft.Extensions.Options.IOptions<DBConnection> connection)
         {
             DBConnection = connection.Value;
         }
-
+        #endregion
 
         [HttpPost("CreateFamily")]
         [Authorize]

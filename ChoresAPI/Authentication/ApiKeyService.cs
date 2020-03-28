@@ -8,7 +8,6 @@ namespace ChoresAPI.Authentication
     public class ApiKeyService : IGetAllApiKeys
     {
         private readonly IDictionary<string, ApiKey> _apiKeys;
-
         public ApiKeyService()
         {
             var existingApiKeys = new List<ApiKey>
@@ -27,7 +26,6 @@ namespace ChoresAPI.Authentication
             };
                 _apiKeys = existingApiKeys.ToDictionary(x => x.Key, x => x);
         }
-
         public Task<ApiKey> Execute(string providedApiKey)
         {
             _apiKeys.TryGetValue(providedApiKey, out var key);

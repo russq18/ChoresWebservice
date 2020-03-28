@@ -12,17 +12,18 @@ namespace ChoresAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        #region Constructor and fields for DI
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
+        #endregion
 
         [HttpGet]
         [Authorize(Policy = Policies.OnlyParents)]
@@ -37,6 +38,7 @@ namespace ChoresAPI.Controllers
             })
             .ToArray();
         }
+
         [HttpGet("only-parents")]
         [Authorize(Policy = Policies.OnlyParents)]
         public IActionResult OnlyParents()
@@ -44,6 +46,7 @@ namespace ChoresAPI.Controllers
             var message = $"Hello from {nameof(OnlyParents)}";
             return new ObjectResult(message);
         }
+
         [HttpGet("anyone")]
         public IActionResult Anyone()
         {

@@ -10,11 +10,13 @@ namespace ChoresAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        #region Constructor and fields for DI
         public DBConnection DBConnection { get; }
         public UserController(Microsoft.Extensions.Options.IOptions<DBConnection> connection)
         {
             DBConnection = connection.Value;
         }
+        #endregion
 
         [HttpGet("GetUsers")]
         [Authorize]
