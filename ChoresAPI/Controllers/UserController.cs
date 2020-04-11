@@ -26,7 +26,7 @@ namespace ChoresAPI.Controllers
             return list;
         }
 
-        [HttpPost("CreateUser")]
+        [HttpPost("CreateUsers")]
         [Authorize]
         public IActionResult CreateUser([FromBody]User user)
         {
